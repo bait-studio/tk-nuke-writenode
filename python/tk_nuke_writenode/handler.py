@@ -1619,7 +1619,10 @@ class TankWriteNodeHandler(object):
                 # this mechanism is used to determine if the script is being saved
                 # as a new file or as the same file in the onScriptSave callback
                 last_known_script_knob = node.knob("tk_last_known_script")
-                if force_reset or not last_known_script_knob.value():
+
+                # MB: Changed this to use the getText method, as the value method occasionally resulted in utf errors. 
+                current_last_known_script_text = last_known_script_knob.getText()
+                if force_reset or not current_last_known_script_text or current_last_known_script_text == "" :
                     last_known_script_knob.setValue(script_path)
 
             # Note that this method can get called to update the proxy render path when the node
