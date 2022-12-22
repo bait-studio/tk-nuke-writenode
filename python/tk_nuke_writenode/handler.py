@@ -2200,7 +2200,8 @@ class TankWriteNodeHandler(object):
             if not knob:
                 continue
 
-            last_known_path = knob.value()
+            # MB: Changed this to use the getText method, as the value method occasionally resulted in utf errors.
+            last_known_path = knob.getText()
             if last_known_path:
                 # correct slashes for compare:
                 last_known_path = last_known_path.replace("/", os.path.sep)
